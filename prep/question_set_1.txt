@@ -1,0 +1,43 @@
+
+What is diff b/w dag and lineage graph
+Architecture of spark
+Optimisations in spark
+Optimisations in bq , sql
+Indexes in sql
+Find all EMP whose dept and Sal are same
+Python lambda functions, why it is faster
+Python decorator
+Python : count all occurrences of words in a string (has map)
+Spark job, no of task , actions
+Narrow and wide transformations
+Shuffling
+SCD types
+Fact dimension tables , star and snowflake schema
+** Query plan in sql
+** Spark query physical plan
+Joins , physical joins
+What is data source and data sink when you were using spark application
+Acid properties
+DWH
+delta lake
+Normalisation vs denormalisation , which is better
+Coalesce repartition
+Lazy evaluation
+Ways to compare files data for data validation
+What are the ways to upload data in bq
+How you will upload a 10 gb csv file in bq
+Streaming insert optimisation
+How will you delete duplicates from tables in bq
+Bq denormalizations
+Bq data types
+Security features in gcp
+Airflow architecture
+Airflow task depency
+trigger rules i airflow
+Optimisations in airflow
+Airflow variable configuration
+CDC
+
+CICD
+Working methodology
+How are you good with dealing with clients

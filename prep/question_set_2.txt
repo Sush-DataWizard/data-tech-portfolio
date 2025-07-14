@@ -1,0 +1,55 @@
+What is medallion architecture?
+If we have 30Gb data stored across 60k files how will you load it optimally?
+CAP theorem
+When to use Snowflake schema?
+SQL indexes
+How to handle data skew?
+AQE
+Hadoop
+execution engine in hive
+optimization techniques in delta lake
+what is zorderby?
+auto_loader
+Unity Catalog
+What is delta sharing?
+What are user indexes?
+
+How merge operation works?
+
+CI/CD
+build pipeline vs release pipeline
+agile methodology
+RBAC
+
+
+
+Pandas DF vs Spark DF
+
+list comprehension
+
+which python libraries I have used ?
+
+OOPS concept in Python - Use class, obj, initialiser
+
+Pyspark coding not using SQL but using pyspark function
+
+
+Joins in detail :
+    Table_1
+    ID  : 1,2,2,3,Null
+
+    Table_2
+    ID : 1,2,3,3,4
+
+    How many rows will come in joins 
+    Inner (5), left(6), right(6), full(7), cross
+
+
+SQL : 
+    Employee Table
+    id, name, dept_id, salary
+
+    Department table
+    dept_id, dept name
+
+    Second highest salary from above table based on dept_name and return Null if no second highest salary
