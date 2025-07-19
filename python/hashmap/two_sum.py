@@ -6,10 +6,11 @@ def twoSum():
     hashmap = {} 
 
     for i, num in enumerate(nums):
+        print(i, num)
         
-        complement = target - num
-        if complement in hashmap:
-            return [hashmap[complement], i]
+        c = target - num
+        if c in hashmap:
+            return [hashmap[c], i]
         hashmap[num] = i
 
 print(twoSum())

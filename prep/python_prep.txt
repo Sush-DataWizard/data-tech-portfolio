@@ -1,0 +1,65 @@
+📌 A. Arrays & Strings (must‑know basics for any coding round)
+
+✅ Two Sum
+✅ Best Time to Buy and Sell Stock
+✅ Maximum Subarray (Kadane’s Algorithm)
+✅ Merge Intervals
+✅ Container With Most Water
+✅ Longest Substring Without Repeating Characters
+✅ Longest Palindromic Substring
+✅ Group Anagrams
+✅ Find All Anagrams in a String
+✅ Subarray Sum Equals K
+
+📌 B. Hashing & Searching
+
+✅ Top K Frequent Elements
+✅ Two Sum II - Input Array Is Sorted
+✅ 3Sum / 4Sum
+✅ Find Duplicate Number
+✅ Longest Consecutive Sequence
+✅ First Unique Character in a String
+
+📌 C. Linked List (pointer logic often tested)
+
+✅ Reverse Linked List (iterative & recursive)
+✅ Detect Cycle in a Linked List (Floyds Algorithm)
+✅ Merge Two Sorted Lists
+✅ Add Two Numbers (Linked List representation)
+
+📌 D. Trees & Graphs (important for data pipelines, traversal logic)
+
+✅ Binary Tree Level Order Traversal
+✅ Lowest Common Ancestor of a Binary Tree
+✅ Validate Binary Search Tree
+✅ Serialize and Deserialize Binary Tree
+✅ Number of Islands (Graph BFS/DFS)
+✅ Clone Graph
+✅ Topological Sort (Kahn's Algorithm) - often used in DAG processing
+
+📌 E. Dynamic Programming (for advanced problem‑solving)
+
+✅ Coin Change (minimum coins)
+✅ Longest Increasing Subsequence
+✅ Maximum Product Subarray
+✅ Unique Paths (with obstacles variant)
+✅ Word Break Problem
+✅ Edit Distance
+
+📌 F. Big Data–Relevant Python Practice
+These won’t be direct LeetCode problems but test your ability to handle data:
+
+✅ Parse huge log files and count events (simulate map-reduce in Python)
+✅ Implement a moving average over a streaming dataset
+✅ Given large CSVs, join two datasets in memory efficiently
+✅ Implement a Bloom Filter or LRU Cache (to show understanding of memory optimization)
+✅ Write a Python function to read data in chunks (using generators/iterators)
+✅ Sort a large dataset that doesn’t fit in memory (external sort concept)
+
+📌 G. System Design / Data Engineering–oriented
+(Usually discussed after coding round — but prepare logic too)
+
+✅ Design a distributed log processing system (like Kafka consumers)
+✅ Design a data pipeline for real-time analytics
+✅ How would you deduplicate massive data sets?
+✅ How would you implement a fault-tolerant ETL job?
