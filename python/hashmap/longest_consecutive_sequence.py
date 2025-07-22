@@ -5,6 +5,7 @@
 
 def longest_consecutive(nums):
     num_set = set(nums)
+    print(num_set)
     longest = 0
 
     for num in num_set:
@@ -15,10 +16,13 @@ def longest_consecutive(nums):
 
             # count up the streak
             while current_num + 1 in num_set:
+
                 current_num += 1
                 current_streak += 1
+                print(current_num, current_streak)
 
             longest = max(longest, current_streak)
+            print(longest)
 
     return longest
 
