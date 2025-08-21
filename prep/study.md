@@ -29,6 +29,45 @@ I want your help to inderstand
 2. How many executors and cores are allocated to this application
 
 
+# Spark architecture
+
+
+Apache Spark's architecture is a master-slave distributed computing model designed for efficient processing of large-scale data. Its key components work together to enable parallel processing, fault tolerance, and in-memory computation.
+
+Driver program (spark context/spark session)
+    -   Entrypoint
+    -   converting user code (e.g., DataFrame transformations) into a logical plan, optimizing it, and breaking it into jobs and tasks.
+    -   Communicates with the Cluster Manager to request resources and with Executors to schedule and monitor tasks.
+
+Cluster manager
+    -   Manages the resources of the cluster (YARN)
+    -   Allocates resources to Spark applications and monitors the health and availability of worker nodes.
+    -   Communicates with the Driver program to provide resource information and with Worker nodes to manage their resources.
+
+Worker Nodes
+    -   Slave nodes in the Spark cluster.
+    -   Host one or more Executors. 
+    -   Receive tasks from the Driver program and execute them.`
+
+Executors:
+    -   Processes that run on Worker Nodes.
+    -   Responsible for performing the actual data processing tasks assigned by the Driver.
+    -   Each Executor typically processes a portion of the data (a partition) and returns the results to the Driver.
+
+
+# deploy mode client vs cluster
+
+deploy modes is where the driver program runs. The driver is the component that controls the application and coordinates with the cluster manager to request resources.
+
+Client Mode
+    -   In Client Mode, the driver program runs on the machine where you submitted the job
+    -   Best suited for debugging because it gives logs on your local terminal.
+
+Cluster Mode
+    -   In Cluster mode, the driver program runs on one of the worker node within cluster
+    -   Production jobs and long-running applications
+
+
 # Master, Core and Task Node 
 
 Master :
@@ -42,6 +81,8 @@ Core Node :
 Task Nodes :
     Used when you need more compute but not additional storage.
     Good for temporary scaling of Spark, MapReduce, etc.
+
+
 
 
 # How many DAGs?
@@ -108,6 +149,14 @@ The actual computation happens only when an action is called (like collect(), co
 | **Indexes**   | Add indexes on joins, filters                |
 | **Execution** | Use `EXPLAIN`, check for full scans          |
 | **Big data**  | Partitioning, clustering, materialized views |
+
+# cache() vs persist()
+
+
+cache(): This is the most common method. When you call .cache() on a DataFrame, Spark marks it to be cached. The actual caching doesn't happen until the first action (like count() or show()) is called on the DataFrame. The data is stored in memory as serialized Java objects.
+
+persist(): The persist() method is more flexible than cache(). It allows you to specify the storage level for the cached DataFrame. For instance, you can choose to store it in memory only, on disk, or a combination of both with or without replication. This is useful for balancing performance and fault tolerance.
+
 
 # SQL Question 
 
@@ -205,6 +254,7 @@ Job 1 :
 | **Stage 1** | Read + Filter + Select (narrow) | Input scan & transformation |
 | **Stage 2** | Output Write                    | Writing to disk (Parquet)   |
 
+    10 tasks each stage
 
 Job 2:
 
@@ -320,6 +370,41 @@ Product_Dim — Sales_Fact — Date_Dim
 | Best For           | OLAP, BI Reporting | OLTP, Backend DWH |
 
 
+# Normalisation vs denormalisation
+
+Normalization :
+    process of organizing data into multiple related tables to reduce data redundancy and improve data integrity.
+    Data is split into multiple normalized tables
+    Uses foreign keys to relate tables
+    Less duplication, but more joins
+
+    e.g :
+        | Orders                        | Customers                |
+        | ----------------------------- | ------------------------ |
+        |  order_id,  customer_id, date |  customer_id, name, city |
+
+DeNormalisation :
+    process of combining tables to reduce the number of joins and improve read/query performance.
+    Data is duplicated across tables
+    Fewer joins → faster for reads
+    More suitable for reporting, analytics
+
+    e.g :
+        | order_id | customer_name | city | date |
+
+
+
+| Aspect                 | **Normalization**                 | **Denormalization**               |
+| ---------------------- | --------------------------------- | --------------------------------- |
+| Purpose                | Efficient writes, integrity       | Efficient reads, reporting        |
+| Use Case               | OLTP (Transactional systems)      | OLAP (Analytics systems)          |
+| Query Performance      | ⚠️ Slower (more joins)            | ✅ Faster (fewer joins)            |
+| Storage Usage          | ✅ Efficient                       | ❌ Larger (due to duplication)    |
+| Maintainability        | ✅ Easier to update a single point | ❌ More risk of inconsistency     |
+| Integrity Constraints  | ✅ Enforced with keys              | ⚠️ Harder to maintain manually    |
+
+
+
 # LOGICAL JOINS 
 
 | Logical Join Type    | What It Does                                                                   | Example                                                       |
@@ -373,7 +458,7 @@ This guarantees that even in the presence of concurrent jobs or failures, our da
 
 Delta Lake is an open-source storage layer built on top of Apache Parquet.
 Brings ACID transactions, schema enforcement, versioning & streaming support to data lakes like Amazon S3, Azure Data Lake, and HDFS.
-Delta maintains a transaction log that tracks every operation, enabling ACID behavior and time travel.
+
 
 
 Features: 
@@ -435,39 +520,6 @@ Think of it like this:
 
 🔑 “Give access to data, not copies of it.”
 
-
-# Normalisation vs denormalisation
-
-Normalization :
-    process of organizing data into multiple related tables to reduce data redundancy and improve data integrity.
-    Data is split into multiple normalized tables
-    Uses foreign keys to relate tables
-    Less duplication, but more joins
-
-    e.g :
-        | Orders                        | Customers                |
-        | ----------------------------- | ------------------------ |
-        |  order_id,  customer_id, date |  customer_id, name, city |
-
-DeNormalisation :
-    process of combining tables to reduce the number of joins and improve read/query performance.
-    Data is duplicated across tables
-    Fewer joins → faster for reads
-    More suitable for reporting, analytics
-
-    e.g :
-        | order_id | customer_name | city | date |
-
-
-
-| Aspect                 | **Normalization**                 | **Denormalization**               |
-| ---------------------- | --------------------------------- | --------------------------------- |
-| Purpose                | Efficient writes, integrity       | Efficient reads, reporting        |
-| Use Case               | OLTP (Transactional systems)      | OLAP (Analytics systems)          |
-| Query Performance      | ⚠️ Slower (more joins)            | ✅ Faster (fewer joins)            |
-| Storage Usage          | ✅ Efficient                       | ❌ Larger (due to duplication)    |
-| Maintainability        | ✅ Easier to update a single point | ❌ More risk of inconsistency     |
-| Integrity Constraints  | ✅ Enforced with keys              | ⚠️ Harder to maintain manually    |
 
 
 # repartition vs coalesce
@@ -585,6 +637,7 @@ Best Config for 10 Gb :
     - 2 core per executor
         3*2 = 6 core in total  -->> 6 task/partition will run parallely
     - 4 GB executor memory
+        
         Note : Spark will divide 10 GB into 128 MB block/partition partition
 
 

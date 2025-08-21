@@ -1,47 +1,23 @@
-def parse_positions(pos_list):
-    """Convert list like ['apple 100'] into dict {'apple': 100}"""
-    pos = {}
-    for item in pos_list:
-        name, qty = item.split()[:2]
-        pos[name] = int(qty)
-    return pos
+def similar_pairs(A, B):
+    from collections import defaultdict
+    MOD = 10**9 + 7
+    
+    freq = defaultdict(int)
+    ans = 0
+    print(freq)
 
-def apply_transactions(start_pos, txn_list):
-    """Apply transactions to starting positions"""
-    pos = start_pos.copy()
-    for txn in txn_list:
-        name, qty, ttype, _ = txn.split()
-        qty = int(qty)
+    for j in range(len(A)):
 
-        if ttype == "SL":   # Sell → reduce position
-            pos[name] = pos.get(name, 0) - qty
-        elif ttype == "BY": # Buy → increase position
-            pos[name] = pos.get(name, 0) + qty
-    return pos
-
-def reconcile(pos0, txn1, pos1):
-    start = parse_positions(pos0)
-    expected = apply_transactions(start, txn1)
-    actual = parse_positions(pos1)
-
-    print("Start:   ", start)
-    print("Expected:", expected)
-    print("Actual:  ", actual)
-
-    # Compare
-    diffs = {}
-    all_keys = set(expected) | set(actual)
-    print("All keys:", all_keys)
-    for k in all_keys:
-        if expected.get(k, 0) != actual.get(k, 0):
-            diffs[k] = (expected.get(k, 0), actual.get(k, 0))
-    return diffs
+        ans = (ans + freq[A[j]]) % MOD
+        freq[A[j]] += 1
+        
+        if j - B >= 0:
+            freq[A[j-B]] -= 1
+            if freq[A[j-B]] == 0:
+                del freq[A[j-B]]
+    
+    return ans % MOD
 
 
-# Example Data
-pos0 = ["apple 100", "google 200", "cash 10"]
-txn1 = ["apple 50 SL 30000", "google 10 BY 10000"]
-pos1 = ["google 20", "cash 100"]
-
-diffs = reconcile(pos0, txn1, pos1)
-print("\nDifferences:", diffs)
+print(similar_pairs([1, 2, 1, 3, 1, 4], 2))  # Output: 2
+# print(similar_pairs([12, 11, 8, 1], 14))     # Output: 0
